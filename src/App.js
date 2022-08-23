@@ -1,9 +1,22 @@
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Table from "./components/Table";
+import axios from "axios";
 
 function App() {
-  return (
-    <div>
+  const [data, setData] = useState([]);
 
+  const fetchData = async () => {
+    const { data } = await axios("https://giftea.github.io/proj-data/mock.json").catch((err) => console.log(err));
+    setData(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <div className="container">
+      <Table mockData={data} />
     </div>
   );
 }
